@@ -13,7 +13,7 @@ GROUP_ID = -1003764086901
 
 # ДАННЫЕ ДЛЯ ПОДКЛЮЧЕНИЯ К БАЗЕ (из шага 2)
 SUPABASE_URL = 'https://lkhuotwwiirhpxvtvyua.supabase.co'   # Ваш Project URL
-SUPABASE_KEY = ''               # Ваш anon public key
+SUPABASE_KEY = 'sb_publishable_MUPGJlwyMlxLjyymv0N1ug_mfwk1QQc'               # Ваш anon public key
 # -----------------
 
 # --- Веб-сервер для Render ---
