@@ -1,11 +1,11 @@
 import sys
 import traceback
+import time
 
 try:
     import telebot
     import sqlite3
     import random
-    import time
     import threading
     import os
     from flask import Flask
@@ -20,6 +20,21 @@ try:
     GROUP_ID = -1003764086901
     # ================================
 
+    # --- Принудительно удаляем вебхук и сбрасываем обновления ---
+    bot = telebot.TeleBot(TOKEN)
+    try:
+        bot.remove_webhook()  # удаляем вебхук
+        print("✅ Webhook удалён")
+    except:
+        pass
+    # Сбрасываем getUpdates (чтобы не было конфликта)
+    try:
+        bot.get_updates(offset=-1, timeout=1)
+        print("✅ Очередь обновлений сброшена")
+    except:
+        pass
+    time.sleep(1)  # небольшая пауза
+
     # --- Веб-сервер для Render ---
     server = Flask(__name__)
 
@@ -31,16 +46,6 @@ try:
         server.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
 
     threading.Thread(target=run_flask).start()
-
-    # --- Код бота ---
-    bot = telebot.TeleBot(TOKEN)
-
-    # Принудительно удаляем вебхук при запуске
-    try:
-        bot.delete_webhook()
-        print("✅ Webhook удалён")
-    except Exception as e:
-        print("Ошибка удаления webhook:", e)
 
     # ----- База данных -----
     conn = sqlite3.connect('support.db', check_same_thread=False)
@@ -69,7 +74,7 @@ try:
 
     print("✅ База данных инициализирована")
 
-    # ----- Функции -----
+    # ----- Функции (без изменений) -----
     def generate_code():
         return str(random.randint(100000000, 999999999))
 
@@ -90,7 +95,6 @@ try:
         c.execute('UPDATE users SET banned = ? WHERE user_id = ?', (banned, user_id))
         conn.commit()
 
-    # ----- General топик для логов -----
     general_topic_id = None
     def get_or_create_general_topic():
         global general_topic_id
@@ -110,7 +114,7 @@ try:
             print("Не удалось создать general топик:", e)
         return general_topic_id
 
-    # ----- Обработчики -----
+    # ----- Обработчики (без изменений) -----
     @bot.message_handler(commands=['start'])
     def start_cmd(message):
         if message.chat.type == 'private':
