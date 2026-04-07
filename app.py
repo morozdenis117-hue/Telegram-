@@ -12,8 +12,8 @@ TOKEN = '8737616518:AAGg7qupCISz6q_P0JP_UQ7-nrtTHzo3NsA'
 GROUP_ID = -1003764086901
 
 # ДАННЫЕ ДЛЯ ПОДКЛЮЧЕНИЯ К БАЗЕ (из шага 2)
-SUPABASE_URL = 'https://xxxxx.supabase.co'   # Ваш Project URL
-SUPABASE_KEY = 'your-anon-key'               # Ваш anon public key
+SUPABASE_URL = 'https://lkhuotwwiirhpxvtvyua.supabase.co'   # Ваш Project URL
+SUPABASE_KEY = ''               # Ваш anon public key
 # -----------------
 
 # --- Веб-сервер для Render ---
